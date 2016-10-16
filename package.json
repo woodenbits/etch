@@ -4,5 +4,18 @@
   "description": "Etch EDA",
   "repository": "woodenbits/etch",
   "author": "Hargobind S. Khalsa <khalsah@gmail.com>",
-  "license": "UNLICENSED"
+  "license": "UNLICENSED",
+  "scripts": {
+    "dist": "build",
+    "pack": "build --dir",
+    "prepublish": "install-app-deps",
+    "start": "electron app"
+  },
+  "build": {
+    "appId": "io.woodenbits.etch"
+  },
+  "devDependencies": {
+    "electron": "^1.4.3",
+    "electron-builder": "^7.13.1"
+  }
 }
