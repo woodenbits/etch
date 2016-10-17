@@ -1,4 +1,11 @@
 import React from 'react';
 import { render } from 'react-dom';
+import { css, StyleSheet } from 'aphrodite/no-important';
 
-render(<h1>Hello World!</h1>, document.getElementById('root'));
+const styles = StyleSheet.create({
+  message: {
+    textAlign: 'center',
+  },
+});
+
+render(<h1 className={css(styles.message)}>Hello World!</h1>, document.getElementById('root'));
