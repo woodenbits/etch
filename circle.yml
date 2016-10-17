@@ -1,0 +1,14 @@
+machine:
+  node:
+    version: v6.1.0
+
+dependencies:
+  pre:
+    - curl -o- -L https://yarnpkg.com/install.sh | bash
+  override:
+    - yarn install
+
+test:
+  pre:
+    - npm run lint -s
+    - npm run flow -s
