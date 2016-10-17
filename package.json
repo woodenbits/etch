@@ -7,6 +7,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "dist": "build",
+    "lint": "eslint app",
     "pack": "build --dir",
     "prepublish": "install-app-deps",
     "start": "electron app"
@@ -15,7 +16,14 @@
     "appId": "io.woodenbits.etch"
   },
   "devDependencies": {
+    "babel-eslint": "^7.0.0",
     "electron": "^1.4.3",
-    "electron-builder": "^7.13.1"
+    "electron-builder": "^7.13.1",
+    "eslint": "^3.8.0",
+    "eslint-config-airbnb": "^12.0.0",
+    "eslint-plugin-flowtype": "^2.20.0",
+    "eslint-plugin-import": "^2.0.1",
+    "eslint-plugin-jsx-a11y": "^2.2.3",
+    "eslint-plugin-react": "^6.4.1"
   }
 }
