@@ -14,7 +14,7 @@
     "flow": "flow",
     "karma": "karma start --single-run",
     "karma:watch": "karma start",
-    "lint": "eslint app/lib lib",
+    "lint": "eslint lib",
     "pack": "build --dir",
     "prepublish": "install-app-deps",
     "start": "electron app",
