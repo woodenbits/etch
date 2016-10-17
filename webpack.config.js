@@ -18,7 +18,8 @@ module.exports = {
   devtool: debug ? 'eval-source-map' : null,
   target: 'electron',
   entry: {
-    etch: './lib',
+    main: './lib/main',
+    renderer: './lib/renderer',
   },
   output: {
     filename: '[name].bundle.js',
@@ -26,14 +27,19 @@ module.exports = {
     pathinfo: debug,
     publicPath: 'assets://',
   },
+  node: {
+    __dirname: false,
+    __filename: false,
+  },
   resolve: {
-    extensions: ['', '.js', '.jsx'],
+    extensions: ['', '.js', '.jsx', '.json'],
   },
   module: {
     loaders: [
       { test: /\.json$/, loader: 'json' },
       { test: /\.jsx?$/, exclude: /node_modules/, loader: 'babel' },
       { test: /\.(jpe?g|png|gif|svg)$/, loaders: ['url', 'img?minimize'] },
+      { test: /\.html$/, loader: 'file' },
     ],
   },
   plugins,

@@ -4,5 +4,5 @@
   "version": "0.0.1",
   "author": "Hargobind S. Khalsa <khalsah@gmail.com>",
   "license": "UNLICENSED",
-  "main": "./lib"
+  "main": "./assets/main.bundle.js"
 }
