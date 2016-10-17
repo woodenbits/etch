@@ -6,7 +6,7 @@ module.exports = (config) => {
   config.set({
     browsers: [electron],
     frameworks: ['mocha', 'sinon'],
-    reporters: ['progress', 'coverage'],
+    reporters: process.env.CI === 'true' ? ['junit', 'coverage'] : ['progress', 'coverage'],
     files: [
       'lib/support/karma.js',
       'lib/**/*.test.js',
@@ -33,6 +33,11 @@ module.exports = (config) => {
         ],
       },
     },
+    junitReporter: {
+      outputDir: process.env.CIRCLE_TEST_REPORTS,
+      outputFile: 'karma.xml',
+      useBrowserName: false,
+    },
     coverageReporter: {
       dir: 'coverage',
       reporters: [
@@ -40,6 +45,6 @@ module.exports = (config) => {
         { type: 'text', subdir: '.', file: 'coverage.txt' },
         { type: 'text-summary' },
       ],
-    }
+    },
   });
 };
