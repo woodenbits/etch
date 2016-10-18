@@ -6,6 +6,9 @@
     "browser": true,
     "node": true
   },
+  "settings": {
+    "import/resolver": "webpack"
+  },
   "rules": {
     "import/no-extraneous-dependencies": "off"
   }
