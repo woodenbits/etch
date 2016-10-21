@@ -2008,6 +2008,13 @@ ee-first@1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/ee-first/-/ee-first-1.1.1.tgz#590c61156b0ae2f4f0255732a158b266bc56b21d"
 
+electron:
+  version "1.4.4"
+  resolved "https://registry.yarnpkg.com/electron/-/electron-1.4.4.tgz#86000bce15e06cadc3566cb7c86122590dee54a5"
+  dependencies:
+    electron-download "^3.0.1"
+    extract-zip "^1.0.3"
+
 electron-builder@^7.13.1:
   version "7.14.2"
   resolved "https://registry.yarnpkg.com/electron-builder/-/electron-builder-7.14.2.tgz#85dca008ae7bd92370b947e47774ad1a668872d3"
@@ -2095,13 +2102,6 @@ electron-osx-sign-tf@^1.0.0:
     minimist "^1.2.0"
     plist "^2.0.1"
     tempfile "^1.1.1"
-
-electron@^1.4.3:
-  version "1.4.3"
-  resolved "https://registry.yarnpkg.com/electron/-/electron-1.4.3.tgz#b67566bd86b59d89c1172bade27ebd888e0304b7"
-  dependencies:
-    electron-download "^3.0.1"
-    extract-zip "^1.0.3"
 
 elliptic@^6.0.0:
   version "6.3.2"
