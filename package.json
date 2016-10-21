@@ -16,7 +16,6 @@
     "karma:watch": "karma start",
     "lint": "eslint lib",
     "pack": "build --dir",
-    "prepublish": "install-app-deps",
     "start": "electron app",
     "test": "npm run karma -s"
   },
