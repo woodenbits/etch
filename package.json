@@ -17,7 +17,8 @@
     "lint": "eslint --ext .js,.jsx *.js lib flow",
     "pack": "build --dir",
     "start": "electron app",
-    "test": "npm run karma -s"
+    "test": "yarn run karma -s",
+    "check": "yarn run lint && yarn run flow && yarn test"
   },
   "build": {
     "appId": "io.woodenbits.etch"
