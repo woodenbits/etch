@@ -16,5 +16,5 @@ dependencies:
 
 test:
   pre:
-    - npm run lint -s
-    - npm run flow -s
+    - yarn run lint
+    - yarn run flow
