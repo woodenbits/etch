@@ -1,6 +1,6 @@
 /* @flow */
 
-import { bindAll } from 'lodash';
+import { bindAll, omit } from 'lodash';
 import React, { Component } from 'react';
 import { StyleSheet, css } from 'aphrodite/no-important';
 import { getContext, resizeCanvasToDisplaySize } from 'twgl-base.js';
@@ -33,6 +33,7 @@ export default class WebGLCanvas extends Component {
     super(props);
 
     bindAll(this,
+      'setup',
       'invalidate',
       'draw'
     );
@@ -75,9 +76,11 @@ export default class WebGLCanvas extends Component {
   }
 
   render() {
+    const rest = omit(this.props, 'styles', 'onSetup', 'onResize', 'onDraw');
+
     return (
       <div className={css(styles.wrapper, this.props.styles)}>
-        <canvas ref={(canvas) => { this.setup(canvas); }} className={css(styles.canvas)} />
+        <canvas ref={this.setup} className={css(styles.canvas)} {...rest} />
       </div>
     );
   }
