@@ -10,6 +10,11 @@
     "import/resolver": "webpack"
   },
   "rules": {
-    "import/no-extraneous-dependencies": "off"
+    "flowtype/delimiter-dangle": ["error", "always-multiline"],
+    "flowtype/require-valid-file-annotation": ["error", "always"],
+
+    "import/no-extraneous-dependencies": ["error", {
+      "devDependencies": ["**/*.test.js", "**/webpack.config.js", "**/karma.conf.js"]
+    }]
   }
 }

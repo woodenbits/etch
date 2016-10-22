@@ -1,3 +1,5 @@
+/* eslint-disable flowtype/require-valid-file-annotation */
+
 const electron = require('electron');
 
 module.exports = (config) => {

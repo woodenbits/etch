@@ -2054,7 +2054,7 @@ electron-builder@^7.13.1:
     uuid-1345 "^0.99.6"
     yargs "^6.0.0"
 
-electron-devtools-installer@^2.0.1:
+electron-devtools-installer:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/electron-devtools-installer/-/electron-devtools-installer-2.0.1.tgz#d52dcb3a430a95b771dc01d8deb13fcbdaa8d13c"
   dependencies:

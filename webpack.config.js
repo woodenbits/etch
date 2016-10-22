@@ -1,3 +1,5 @@
+/* eslint-disable flowtype/require-valid-file-annotation */
+
 const webpack = require('webpack');
 const BabiliPlugin = require('babili-webpack-plugin');
 
