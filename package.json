@@ -24,7 +24,6 @@
     "appId": "io.woodenbits.etch"
   },
   "devDependencies": {
-    "aphrodite": "^1.0.0",
     "babel-core": "^6.17.0",
     "babel-eslint": "^7.0.0",
     "babel-loader": "^6.2.5",
@@ -34,6 +33,7 @@
     "babel-preset-react": "^6.16.0",
     "babili-webpack-plugin": "^0.0.5",
     "cross-env": "^3.1.3",
+    "electron": "^1.4.4",
     "electron-builder": "^7.13.1",
     "eslint": "^3.8.0",
     "eslint-config-airbnb": "^12.0.0",
@@ -63,8 +63,7 @@
     "webpack": "^1.13.2"
   },
   "dependencies": {
-    "aphrodite": "^0.6.0",
-    "electron": "^1.4.4",
+    "aphrodite": "^1.0.0",
     "electron-devtools-installer": "^2.0.1",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",

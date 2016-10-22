@@ -1,5 +1,6 @@
 {
   "name": "etch",
+  "productName": "Etch EDA",
   "description": "Etch EDA",
   "version": "0.0.1",
   "author": "Hargobind S. Khalsa <khalsah@gmail.com>",

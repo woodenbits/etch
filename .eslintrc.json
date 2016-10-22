@@ -14,7 +14,7 @@
     "flowtype/require-valid-file-annotation": ["error", "always"],
 
     "import/no-extraneous-dependencies": ["error", {
-      "devDependencies": ["**/*.test.js", "**/webpack.config.js", "**/karma.conf.js"]
+      "devDependencies": true
     }]
   }
 }
