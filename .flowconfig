@@ -6,3 +6,4 @@
 flow/decls
 [options]
 module.name_mapper='^file!.+$' -> '<PROJECT_ROOT>/flow/stubs/file-loader.js'
+module.name_mapper.extension='glsl' -> '<PROJECT_ROOT>/flow/stubs/raw-loader.js'

@@ -38,6 +38,7 @@ module.exports = {
     loaders: [
       { test: /\.json$/, loader: 'json' },
       { test: /\.jsx?$/, exclude: /node_modules/, loader: 'babel' },
+      { test: /\.glsl$/, loader: 'raw' },
       { test: /\.(jpe?g|png|gif|svg)$/, loaders: ['url', 'img?minimize'] },
     ],
   },

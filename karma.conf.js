@@ -31,6 +31,7 @@ module.exports = (config) => {
         loaders: [
           { test: /\.json$/, loader: 'json' },
           { test: /\.jsx?$/, exclude: /node_modules/, loader: 'babel', query: { presets: ['power-assert'], plugins: ['istanbul'] } },
+          { test: /\.glsl$/, loader: 'raw' },
           { test: /\.(jpe?g|png|gif|svg)$/, loaders: ['url', 'img?minimize'] },
         ],
       },

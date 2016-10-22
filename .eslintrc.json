@@ -13,8 +13,21 @@
     "flowtype/delimiter-dangle": ["error", "always-multiline"],
     "flowtype/require-valid-file-annotation": ["error", "always"],
 
+    "no-duplicate-imports": "off",
     "import/no-extraneous-dependencies": ["error", {
       "devDependencies": true
+    }],
+    "react/sort-comp": [2, {
+      "order": [
+        "type-annotations",
+        "static-methods",
+        "lifecycle",
+        "/^on.+$/",
+        "/^(get|set)(?!(InitialState$|DefaultProps$|ChildContext$)).+$/",
+        "everything-else",
+        "/^render.+$/",
+        "render"
+      ]
     }]
   }
 }
