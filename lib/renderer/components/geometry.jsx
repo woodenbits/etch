@@ -2,7 +2,7 @@
 
 import { bindAll } from 'lodash';
 import React, { Component } from 'react';
-import { createProgramInfo, createBufferInfoFromArrays, drawBufferInfo, setBuffersAndAttributes, setUniforms } from 'twgl-base.js';
+import { createProgramInfo, createBufferInfoFromArrays, drawBufferInfo, setAttribInfoBufferFromArray, setBuffersAndAttributes, setUniforms } from 'twgl-base.js';
 import { mat4 } from 'gl-matrix';
 
 import WebGLCanvas from './webgl_canvas';
@@ -13,14 +13,20 @@ const MAT4 = mat4.create();
 type Props = {};
 type ProgramInfo = any;
 type BufferInfo = any;
+type Block = {
+  uniforms: {
+    color: [number, number, number, number],
+  },
+  position: Float32Array,
+}
 
 export default class Geometry extends Component {
   canvas: WebGLCanvas;
   gl: WebGLRenderingContext;
   programInfo: ProgramInfo;
   bufferInfo: BufferInfo;
+  blocks: Block[];
   uniforms: {
-    color: number[],
     transform: typeof MAT4,
   };
 
@@ -45,15 +51,30 @@ export default class Geometry extends Component {
     this.bufferInfo = createBufferInfoFromArrays(gl, {
       position: {
         numComponents: 2,
-        data: [
-          0, 0, 0, 100, 100, 0,
-          0, 0, -100, 0, 0, -100,
-        ],
+        data: [],
+        drawType: gl.STREAM_DRAW,
       },
     });
 
+    this.blocks = [{
+      uniforms: {
+        color: [1, 1, 0, 1],
+      },
+      position: new Float32Array([
+        0, 0, 0, 100, -100, 0,
+        0, 0, 0, -100, 100, 0,
+      ]),
+    }, {
+      uniforms: {
+        color: [0, 0, 1, 1],
+      },
+      position: new Float32Array([
+        0, 0, 0, 100, 100, 0,
+        0, 0, 0, -100, -100, 0,
+      ]),
+    }];
+
     this.uniforms = {
-      color: [1, 1, 0, 1],
       transform: mat4.create(),
     };
   }
@@ -74,12 +95,20 @@ export default class Geometry extends Component {
   }
 
   draw() {
-    const { gl, bufferInfo, programInfo, uniforms } = this;
+    const { gl, bufferInfo, programInfo } = this;
 
     gl.useProgram(programInfo.program);
-    setBuffersAndAttributes(gl, programInfo, bufferInfo);
-    setUniforms(programInfo, uniforms);
-    drawBufferInfo(gl, bufferInfo);
+    setUniforms(programInfo, this.uniforms);
+
+    for (const block of this.blocks) {
+      setUniforms(programInfo, block.uniforms);
+
+      setAttribInfoBufferFromArray(gl, bufferInfo.attribs.position, block.position);
+      bufferInfo.numElements = block.position.length / 2;
+
+      setBuffersAndAttributes(gl, programInfo, bufferInfo);
+      drawBufferInfo(gl, bufferInfo);
+    }
   }
 
   render() {

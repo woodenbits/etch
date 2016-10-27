@@ -3,6 +3,8 @@
 declare class WebGLProgram {}
 
 declare class WebGLRenderingContext {
+  STREAM_DRAW: any;
+
   canvas: HTMLCanvasElement;
   drawingBufferWidth: number;
   drawingBufferHeight: number;
