@@ -2,10 +2,11 @@
 
 import { bindAll } from 'lodash';
 import React, { Component } from 'react';
-import { createProgramInfo, createBufferInfoFromArrays, drawBufferInfo, setAttribInfoBufferFromArray, setBuffersAndAttributes, setUniforms } from 'twgl-base.js';
+import { createProgramInfo, setBuffersAndAttributes, setUniforms } from 'twgl-base.js';
 import { mat4 } from 'gl-matrix';
 
 import WebGLCanvas from './webgl_canvas';
+import batchArrays from '../../utils/batch_arrays';
 import vertexShader from '../shaders/2d.vertex.glsl';
 import fragmentShader from '../shaders/2d.fragment.glsl';
 
@@ -13,19 +14,25 @@ const MAT4 = mat4.create();
 type Props = {};
 type ProgramInfo = any;
 type BufferInfo = any;
-type Block = {
+
+type Batch = {
+  data: Float32Array,
+  size: number,
+};
+
+type Phase = {
   uniforms: {
-    color: [number, number, number, number],
+    color: number[],
   },
-  position: Float32Array,
-}
+  batches: Iterable<Batch>,
+};
 
 export default class Geometry extends Component {
   canvas: WebGLCanvas;
   gl: WebGLRenderingContext;
+  buffer: WebGLBuffer;
   programInfo: ProgramInfo;
   bufferInfo: BufferInfo;
-  blocks: Block[];
   uniforms: {
     transform: typeof MAT4,
   };
@@ -48,31 +55,18 @@ export default class Geometry extends Component {
       fragmentShader,
     ]);
 
-    this.bufferInfo = createBufferInfoFromArrays(gl, {
-      position: {
-        numComponents: 2,
-        data: [],
-        drawType: gl.STREAM_DRAW,
-      },
-    });
+    this.buffer = gl.createBuffer();
 
-    this.blocks = [{
-      uniforms: {
-        color: [1, 1, 0, 1],
+    this.bufferInfo = {
+      attribs: {
+        position: {
+          size: 2,
+          offset: 0,
+          stride: 0,
+          buffer: this.buffer,
+        },
       },
-      position: new Float32Array([
-        0, 0, 0, 100, -100, 0,
-        0, 0, 0, -100, 100, 0,
-      ]),
-    }, {
-      uniforms: {
-        color: [0, 0, 1, 1],
-      },
-      position: new Float32Array([
-        0, 0, 0, 100, 100, 0,
-        0, 0, 0, -100, -100, 0,
-      ]),
-    }];
+    };
 
     this.uniforms = {
       transform: mat4.create(),
@@ -98,17 +92,78 @@ export default class Geometry extends Component {
     const { gl, bufferInfo, programInfo } = this;
 
     gl.useProgram(programInfo.program);
-    setUniforms(programInfo, this.uniforms);
+    setBuffersAndAttributes(gl, programInfo, bufferInfo);
 
-    for (const block of this.blocks) {
-      setUniforms(programInfo, block.uniforms);
+    for (const phase of this.phases()) {
+      setUniforms(programInfo, this.uniforms);
+      setUniforms(programInfo, phase.uniforms);
 
-      setAttribInfoBufferFromArray(gl, bufferInfo.attribs.position, block.position);
-      bufferInfo.numElements = block.position.length / 2;
-
-      setBuffersAndAttributes(gl, programInfo, bufferInfo);
-      drawBufferInfo(gl, bufferInfo);
+      for (const batch of phase.batches) {
+        gl.bindBuffer(gl.ARRAY_BUFFER, this.buffer);
+        gl.bufferData(gl.ARRAY_BUFFER, batch.data, gl.STREAM_DRAW);
+        gl.drawArrays(gl.TRIANGLES, 0, batch.size / 2);
+      }
     }
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  * phases(): Iterable<Phase> {
+    const data = new Float32Array(6);
+
+    let items;
+
+    items = [
+      new Float32Array([
+        0, 0, 0, 100, 100, 0,
+        0, 0, 0, -100, -100, 0,
+        200, 0, 200, 100, 100, 0,
+      ]),
+      new Float32Array([
+        200, 0, 200, -100, 300, 0,
+      ]),
+    ];
+
+    yield {
+      uniforms: {
+        color: [0, 0, 1, 1],
+      },
+      batches: batchArrays(data, items),
+    };
+
+    items = [
+      new Float32Array([
+        0, 0, 0, 100, -100, 0,
+        0, 0, 0, -100, 100, 0,
+      ]),
+      new Float32Array([
+        -200, 0, -200, 100, -100, 0,
+        -200, 0, -200, -100, -300, 0,
+      ]),
+    ];
+
+
+    yield {
+      uniforms: {
+        color: [0, 1, 0, 1],
+      },
+      batches: batchArrays(data, items),
+    };
+
+    items = [
+      new Float32Array([
+        200, 0, 200, 100, 300, 0,
+        200, 0, 200, -100, 100, 0,
+        -200, 0, -200, 100, -300, 0,
+        -200, 0, -200, -100, -100, 0,
+      ]),
+    ];
+
+    yield {
+      uniforms: {
+        color: [1, 0, 0, 1],
+      },
+      batches: batchArrays(data, items),
+    };
   }
 
   render() {
