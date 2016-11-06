@@ -7,15 +7,19 @@ import { Provider } from 'react-redux';
 import makeStore from './store';
 import App from './components/app';
 
-const store = makeStore();
+function boot(element: HTMLElement) {
+  const store = makeStore();
 
-window.store = store;
-render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
-  document.getElementById('root')
-);
+  window.store = store;
+  render(
+    <Provider store={store}>
+      <App />
+    </Provider>,
+    element
+  );
+}
+
+export { boot };
 
 if (module.hot) {
   const hot = module.hot;

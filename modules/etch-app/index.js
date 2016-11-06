@@ -1,14 +1,14 @@
 /* @flow */
 
 import { app, BrowserWindow } from 'electron';
-import renderer from 'file!./renderer.html';
+import loader from 'file!./loader.html';
 
 let win;
 
 function createWindow() {
   win = new BrowserWindow({ width: 800, height: 600, show: false });
 
-  win.loadURL(renderer);
+  win.loadURL(loader);
 
   win.on('ready-to-show', () => {
     if (win) { win.show(); }
