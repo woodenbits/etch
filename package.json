@@ -14,7 +14,7 @@
     "flow": "flow",
     "karma": "karma start --single-run",
     "karma:watch": "karma start",
-    "lint": "eslint --ext .js,.jsx *.js lib flow",
+    "lint": "eslint --ext .js,.jsx *.js flow modules support",
     "pack": "build --dir",
     "start": "electron app",
     "test": "yarn run karma -s",

@@ -21,6 +21,7 @@
     "import/no-extraneous-dependencies": ["error", {
       "devDependencies": true
     }],
+    "import/prefer-default-export": "warn",
     "react/sort-comp": [2, {
       "order": [
         "type-annotations",

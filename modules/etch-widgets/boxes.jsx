@@ -27,13 +27,13 @@ export function Box(props: Props) {
   const rest = omit(props, 'direction', 'styles', 'className');
   const className = css(styles.box, styles[props.direction], props.styles);
 
-  return <div {...rest} className={`${className} ${props.className}`} />;
+  return <div {...rest} className={`${className} ${props.className || ''}`} />;
 }
 
-export function HBox(props) {
+export function HBox(props: Object) {
   return <Box {...props} direction="horizontal" />;
 }
 
-export function VBox(props) {
+export function VBox(props: Object) {
   return <Box {...props} direction="vertical" />;
 }
