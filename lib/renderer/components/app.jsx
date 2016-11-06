@@ -2,7 +2,8 @@
 
 import React from 'react';
 import { css, StyleSheet } from 'aphrodite/no-important';
-import layout from '../../styles/layout';
+import { HBox, VBox } from 'etch-widgets';
+
 import Geometry from './geometry';
 
 const styles = StyleSheet.create({
@@ -19,14 +20,14 @@ const styles = StyleSheet.create({
 });
 
 const App = () => (
-  <div className={css(styles.top, layout.vbox)}>
+  <VBox styles={styles.top}>
     <h1 className={css(styles.message)}>
       Hello World!
     </h1>
-    <div className={css(layout.hbox, layout.flex)}>
+    <HBox>
       <Geometry />
-    </div>
-  </div>
+    </HBox>
+  </VBox>
 );
 
 export default App;
