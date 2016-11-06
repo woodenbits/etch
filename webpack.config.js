@@ -20,8 +20,8 @@ module.exports = {
   devtool: debug ? 'inline-source-map' : null,
   target: 'electron',
   entry: {
-    main: ['./lib/support/webpack', './lib/main'],
-    renderer: ['./lib/support/webpack', './lib/renderer'],
+    main: ['./support/webpack', './lib/main'],
+    renderer: ['./support/webpack', './lib/renderer'],
   },
   output: {
     filename: '[name].bundle.js',

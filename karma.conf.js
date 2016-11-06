@@ -10,8 +10,9 @@ module.exports = (config) => {
     frameworks: ['mocha', 'sinon'],
     reporters: process.env.CI === 'true' ? ['junit', 'coverage'] : ['progress', 'coverage'],
     files: [
-      'lib/support/karma.js',
+      'support/karma.js',
       'lib/**/*.test.js',
+      'modules/**/*.test.js',
     ],
     preprocessors: {
       'lib/**/*.test.js': ['webpack', 'sourcemap'],
@@ -26,6 +27,7 @@ module.exports = (config) => {
       },
       resolve: {
         extensions: ['', '.js', '.jsx'],
+        root: `${__dirname}/modules`,
       },
       module: {
         loaders: [
