@@ -3,7 +3,6 @@
 import { bindAll, omit } from 'lodash';
 import React, { Component } from 'react';
 import { StyleSheet, css } from 'aphrodite/no-important';
-import { getContext } from 'twgl-base.js';
 import resizeCanvas from '../utils/resize_canvas';
 
 const styles = StyleSheet.create({
@@ -52,7 +51,13 @@ export default class WebGLCanvas extends Component {
 
   setup(canvas: HTMLCanvasElement) {
     this.canvas = canvas;
-    this.gl = getContext(this.canvas);
+    const gl = this.canvas.getContext('webgl');
+
+    if (gl == null) {
+      throw Error('Unable to get WebGL context');
+    }
+
+    this.gl = gl;
 
     this.props.onSetup(this.gl);
 

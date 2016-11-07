@@ -1,8 +1,10 @@
 /* @flow */
 
-import { bindAll } from 'lodash';
+import { bindAll, each } from 'lodash';
 import React, { Component } from 'react';
-import { createProgramInfo, setBuffersAndAttributes, setUniforms } from 'twgl-base.js';
+import createBuffer from 'gl-buffer';
+import createShader from 'gl-shader';
+import createVAO from 'gl-vao';
 import { mat4 } from 'gl-matrix';
 import { batchArrays } from 'etch-webglu/utils';
 import { WebGLCanvas } from 'etch-webglu/components';
@@ -10,10 +12,7 @@ import { WebGLCanvas } from 'etch-webglu/components';
 import vertexShader from '../shaders/2d.vertex.glsl';
 import fragmentShader from '../shaders/2d.fragment.glsl';
 
-const MAT4 = mat4.create();
 type Props = {};
-type ProgramInfo = any;
-type BufferInfo = any;
 
 type Batch = {
   data: Float32Array,
@@ -30,11 +29,11 @@ type Phase = {
 export default class Geometry extends Component {
   canvas: WebGLCanvas;
   gl: WebGLRenderingContext;
-  buffer: WebGLBuffer;
-  programInfo: ProgramInfo;
-  bufferInfo: BufferInfo;
+  buffer: any;
+  shader: any;
+  vao: any;
   uniforms: {
-    transform: typeof MAT4,
+    transform: any,
   };
 
   constructor(props: Props) {
@@ -50,23 +49,19 @@ export default class Geometry extends Component {
   setup(gl: WebGLRenderingContext) {
     this.gl = gl;
 
-    this.programInfo = createProgramInfo(gl, [
+    this.shader = createShader(gl,
       vertexShader,
-      fragmentShader,
-    ]);
+      fragmentShader
+    );
 
-    this.buffer = gl.createBuffer();
+    this.shader.attributes.position.location = 0;
 
-    this.bufferInfo = {
-      attribs: {
-        position: {
-          size: 2,
-          offset: 0,
-          stride: 0,
-          buffer: this.buffer,
-        },
-      },
-    };
+    this.buffer = createBuffer(gl, 0, gl.ARRAY_BUFFER, gl.STREAM_DRAW);
+
+    this.vao = createVAO(gl, [{
+      buffer: this.buffer,
+      size: 2,
+    }]);
 
     this.uniforms = {
       transform: mat4.create(),
@@ -89,21 +84,22 @@ export default class Geometry extends Component {
   }
 
   draw() {
-    const { gl, bufferInfo, programInfo } = this;
+    const { gl, buffer, shader, vao } = this;
 
-    gl.useProgram(programInfo.program);
-    setBuffersAndAttributes(gl, programInfo, bufferInfo);
+    shader.bind();
+    vao.bind();
 
     for (const phase of this.phases()) {
-      setUniforms(programInfo, this.uniforms);
-      setUniforms(programInfo, phase.uniforms);
+      each(this.uniforms, (value, key) => { shader.uniforms[key] = value; });
+      each(phase.uniforms, (value, key) => { shader.uniforms[key] = value; });
 
       for (const batch of phase.batches) {
-        gl.bindBuffer(gl.ARRAY_BUFFER, this.buffer);
-        gl.bufferData(gl.ARRAY_BUFFER, batch.data, gl.STREAM_DRAW);
-        gl.drawArrays(gl.TRIANGLES, 0, batch.size / 2);
+        buffer.update(batch.data);
+        vao.draw(gl.TRIANGLES, batch.size / 2);
       }
     }
+
+    vao.unbind();
   }
 
   // eslint-disable-next-line class-methods-use-this
