@@ -11,11 +11,11 @@ module.exports = (config) => {
     reporters: process.env.CI === 'true' ? ['junit', 'coverage'] : ['progress', 'coverage'],
     files: [
       'support/karma.js',
-      'lib/**/*.test.js',
       'modules/**/*.test.js',
     ],
     preprocessors: {
-      'lib/**/*.test.js': ['webpack', 'sourcemap'],
+      'support/**/*.test.js': ['webpack', 'sourcemap'],
+      'modules/**/*.test.js': ['webpack', 'sourcemap'],
     },
     webpack: {
       context: __dirname,

@@ -9,7 +9,7 @@
  */
 function resizeCanvas(canvas: HTMLCanvasElement, multiplier: number = 1): boolean {
   const width = Math.trunc(canvas.clientWidth * multiplier);
-  const height = Math.trunc(canvas.clientWidth * multiplier);
+  const height = Math.trunc(canvas.clientHeight * multiplier);
 
   if (canvas.width !== width || canvas.height !== height) {
     canvas.width = width;
