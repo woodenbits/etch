@@ -10,11 +10,10 @@ module.exports = (config) => {
     frameworks: ['mocha', 'sinon'],
     reporters: process.env.CI === 'true' ? ['junit', 'coverage'] : ['progress', 'coverage'],
     files: [
-      'support/karma.js',
-      'modules/**/*.test.{js,jsx}',
+      './support/karma.js',
     ],
     preprocessors: {
-      '{support,modules}/**/*.{js,jsx}': ['webpack', 'sourcemap'],
+      './support/karma.js': ['webpack', 'sourcemap'],
     },
     webpack: {
       context: __dirname,
@@ -23,6 +22,11 @@ module.exports = (config) => {
       externals: {
         mocha: 'Mocha',
         sinon: 'sinon',
+
+        // Enzyme - see: https://github.com/airbnb/enzyme/blob/master/docs/guides/webpack.md#react-15-compatibility
+        'react/addons': true,
+        'react/lib/ExecutionEnvironment': true,
+        'react/lib/ReactContext': true,
       },
       resolve: {
         extensions: ['', '.js', '.jsx'],
