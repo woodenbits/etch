@@ -2,7 +2,7 @@
 
 import { describe, it } from 'mocha';
 import assert from 'assert';
-import resizeCanvas from './resize_canvas';
+import resizeCanvas from '../resize_canvas';
 
 describe('resizeCanvas', () => {
   it('returns true if the canvas has been resized', () => {

@@ -18,9 +18,9 @@ const styles = StyleSheet.create({
 });
 
 type Props = {
-  className: ?string,
+  className?: string,
   direction: "horizontal" | "vertical",
-  styles: any,
+  styles?: any,
 };
 
 export function Box(props: Props) {
