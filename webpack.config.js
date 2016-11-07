@@ -20,8 +20,8 @@ module.exports = {
   devtool: debug ? 'inline-source-map' : null,
   target: 'electron',
   entry: {
-    main: ['./lib/support/webpack', './lib/main'],
-    renderer: ['./lib/support/webpack', './lib/renderer'],
+    main: ['./support/webpack', './modules/etch-app/index.js'],
+    loader: ['./support/webpack', './modules/etch-app/loader.js'],
   },
   output: {
     filename: '[name].bundle.js',
@@ -30,6 +30,7 @@ module.exports = {
   },
   resolve: {
     extensions: ['', '.js', '.jsx', '.json'],
+    root: `${__dirname}/modules`,
   },
   node: {
     __dirname: false,

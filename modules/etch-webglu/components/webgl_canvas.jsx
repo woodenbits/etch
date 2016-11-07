@@ -3,7 +3,8 @@
 import { bindAll, omit } from 'lodash';
 import React, { Component } from 'react';
 import { StyleSheet, css } from 'aphrodite/no-important';
-import { getContext, resizeCanvasToDisplaySize } from 'twgl-base.js';
+import { getContext } from 'twgl-base.js';
+import resizeCanvas from '../utils/resize_canvas';
 
 const styles = StyleSheet.create({
   wrapper: {
@@ -67,7 +68,7 @@ export default class WebGLCanvas extends Component {
 
   draw() {
     this.valid = true;
-    const resized = resizeCanvasToDisplaySize(this.canvas, window.devicePixelRatio);
+    const resized = resizeCanvas(this.canvas, window.devicePixelRatio);
     if (resized) {
       this.props.onResize();
     }

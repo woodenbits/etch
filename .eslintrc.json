@@ -13,10 +13,15 @@
     "flowtype/delimiter-dangle": ["error", "always-multiline"],
     "flowtype/require-valid-file-annotation": ["error", "always"],
 
+    "no-param-reassign":["error", {
+      "props": false
+    }],
+
     "no-duplicate-imports": "off",
     "import/no-extraneous-dependencies": ["error", {
       "devDependencies": true
     }],
+    "import/prefer-default-export": "warn",
     "react/sort-comp": [2, {
       "order": [
         "type-annotations",
