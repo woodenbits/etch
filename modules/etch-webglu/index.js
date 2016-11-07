@@ -1,11 +1,9 @@
 /* @flow */
 
-import WebGLCanvas from './webgl_canvas';
-import batchArrays from './batch_arrays';
-import resizeCanvas from './resize_canvas';
+import * as Components from './components';
+import * as Utils from './utils';
 
 export {
-  WebGLCanvas,
-  batchArrays,
-  resizeCanvas,
+  Components,
+  Utils,
 };

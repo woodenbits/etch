@@ -4,7 +4,7 @@ import { bindAll, omit } from 'lodash';
 import React, { Component } from 'react';
 import { StyleSheet, css } from 'aphrodite/no-important';
 import { getContext } from 'twgl-base.js';
-import { resizeCanvas } from 'etch-webglu';
+import resizeCanvas from '../utils/resize_canvas';
 
 const styles = StyleSheet.create({
   wrapper: {

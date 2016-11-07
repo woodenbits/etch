@@ -4,7 +4,8 @@ import { bindAll } from 'lodash';
 import React, { Component } from 'react';
 import { createProgramInfo, setBuffersAndAttributes, setUniforms } from 'twgl-base.js';
 import { mat4 } from 'gl-matrix';
-import { batchArrays, WebGLCanvas } from 'etch-webglu';
+import { batchArrays } from 'etch-webglu/utils';
+import { WebGLCanvas } from 'etch-webglu/components';
 
 import vertexShader from '../shaders/2d.vertex.glsl';
 import fragmentShader from '../shaders/2d.fragment.glsl';
