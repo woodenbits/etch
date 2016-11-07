@@ -5,12 +5,21 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 
 import reducer from './reducers';
 
-export default function makeStore() {
-  const middleware = [];
+const middleware = [];
 
-  const enhancer = composeWithDevTools(
-    applyMiddleware(...middleware)
-  );
+const enhancer = composeWithDevTools(
+  applyMiddleware(...middleware)
+);
 
-  return createStore(reducer, enhancer);
+const store = createStore(reducer, enhancer);
+
+export default store;
+window.store = store;
+
+if (module.hot) {
+  module.hot.accept('./reducers', () => {
+    // eslint-disable-next-line global-require
+    const $reducer = require('./reducers').default;
+    store.replaceReducer($reducer);
+  });
 }
