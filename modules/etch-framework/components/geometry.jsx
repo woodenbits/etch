@@ -51,7 +51,7 @@ export default class Geometry extends Component {
 
     this.shader = createShader(gl,
       vertexShader,
-      fragmentShader
+      fragmentShader,
     );
 
     this.shader.attributes.position.location = 0;

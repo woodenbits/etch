@@ -8,7 +8,7 @@ import reducer from './reducers';
 const middleware = [];
 
 const enhancer = composeWithDevTools(
-  applyMiddleware(...middleware)
+  applyMiddleware(...middleware),
 );
 
 const store = createStore(reducer, enhancer);

@@ -12,7 +12,7 @@ function boot(element: HTMLElement) {
     <Provider store={store}>
       <App />
     </Provider>,
-    element
+    element,
   );
 }
 

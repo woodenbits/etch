@@ -17,6 +17,13 @@
       "props": false
     }],
 
+    "no-restricted-syntax": [
+      "error",
+      "ForInStatement",
+      "LabeledStatement",
+      "WithStatement"
+    ],
+
     "no-duplicate-imports": "off",
     "import/no-extraneous-dependencies": ["error", {
       "devDependencies": true

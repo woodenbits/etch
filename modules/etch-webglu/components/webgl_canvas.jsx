@@ -35,7 +35,7 @@ export default class WebGLCanvas extends Component {
     bindAll(this,
       'setup',
       'invalidate',
-      'draw'
+      'draw',
     );
 
     this.valid = true;

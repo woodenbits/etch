@@ -1,6 +1,8 @@
 /* @flow */
 
 import { app, BrowserWindow } from 'electron';
+
+// eslint-disable-next-line import/no-webpack-loader-syntax
 import loader from 'file!./loader.html';
 
 let win;
