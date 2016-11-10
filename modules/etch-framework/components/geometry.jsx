@@ -6,8 +6,7 @@ import createBuffer from 'gl-buffer';
 import createShader from 'gl-shader';
 import createVAO from 'gl-vao';
 import { mat4 } from 'gl-matrix';
-import { batchArrays } from 'etch-webglu/utils';
-import { WebGLCanvas } from 'etch-webglu/components';
+import { WebGLCanvas, batchArrays } from 'etch-webglu';
 
 import vertexShader from '../shaders/2d.vertex.glsl';
 import fragmentShader from '../shaders/2d.fragment.glsl';
