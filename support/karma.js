@@ -6,5 +6,4 @@ window.global = window.top.global;
 
 // Load all tests
 const ctx = require.context('../modules/', true, /\.test\.jsx?$/);
-console.log(ctx.keys());
 ctx.keys().forEach(ctx);
