@@ -1,4 +1,7 @@
 machine:
+  environment:
+    YARN_VERSION: 0.18.0
+    PATH: "${PATH}:${HOME}/.yarn/bin"
   node:
     version: v6
 
@@ -8,9 +11,13 @@ general:
 
 dependencies:
   cache_directories:
+    - ~/.yarn
     - ~/.cache/yarn
   pre:
-    - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 0.17.8
+    - |
+      if [[ ! -e ~/.yarn/bin/yarn || $(yarn --version) != "${YARN_VERSION}" ]]; then
+        curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version $YARN_VERSION
+      fi
   override:
     - yarn install
 
@@ -18,3 +25,5 @@ test:
   pre:
     - yarn run lint
     - yarn run flow
+  override:
+    - yarn test
